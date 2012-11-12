@@ -1,7 +1,7 @@
 from .http import HttpServer, Response
 from diesel.util.queue import Queue
 from diesel import fork, until, receive, first, ConnectionClosed, send
-from simplejson import dumps, loads, JSONDecodeError
+from simplejson import dumps, loads#, JSONDecodeError
 import cgi, hashlib
 from struct import pack, unpack
 from base64 import b64encode
@@ -160,7 +160,7 @@ class WebSocketServer(HttpServer):
                     try:
                         data = loads(val)
                         inq.put(data)
-                    except JSONDecodeError:
+                    except Exception, ex:
                         pass
             elif typ == outq:
                 if type(val) is WebSocketDisconnect:
